@@ -50,6 +50,7 @@ jobs:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
           HF_DATASET_REPO: ${{ secrets.HF_DATASET_REPO }}
           HF_MODEL_REPO: ${{ secrets.HF_MODEL_REPO }}
+          MLFLOW_ALLOW_FILE_STORE: "true"
         run: python tourism_project/train_and_register.py
 
   deploy-space:
