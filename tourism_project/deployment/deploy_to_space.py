@@ -10,7 +10,7 @@ if not HF_SPACE_REPO:
     raise EnvironmentError("HF_SPACE_REPO is required, e.g., username/visit-with-us-space")
 
 api = HfApi(token=HF_TOKEN)
-api.create_repo(repo_id=HF_SPACE_REPO, repo_type="space", space_sdk="streamlit", exist_ok=True)
+api.create_repo(repo_id=HF_SPACE_REPO, repo_type="space", space_sdk="docker", exist_ok=True)
 
 api.upload_folder(
     folder_path="tourism_project/deployment",
