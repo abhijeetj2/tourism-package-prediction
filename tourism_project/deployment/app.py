@@ -57,6 +57,15 @@ if st.button("Predict"):
         st.info("Check HF_MODEL_REPO / HF_TOKEN in Space settings and confirm best_model.joblib exists.")
         st.stop()
 
+    # Align inference payload with training columns expected by the sklearn pipeline.
+    # This handles columns like "Unnamed: 0" that may exist in the training data.
+    if hasattr(model, "feature_names_in_"):
+        expected_cols = list(model.feature_names_in_)
+        for col in expected_cols:
+            if col not in input_df.columns:
+                input_df[col] = 0
+        input_df = input_df[expected_cols]
+
     pred = model.predict(input_df)[0]
     prob = model.predict_proba(input_df)[0][1]
 
