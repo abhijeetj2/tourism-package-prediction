@@ -21,10 +21,7 @@ This package is ready to upload to a GitHub repository for the "Visit with Us" p
 - `tourism_project/deployment/deploy_to_space.py`
 - `tourism_project/data/.gitkeep`
 
-## Files you should add manually before push
 
-- `Learner_Template_Notebook_AML_and_MLOps_Project.ipynb`
-- `tourism_project/data/tourism.csv`
 
 ## Required GitHub Secrets
 
