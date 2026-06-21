@@ -19,5 +19,8 @@ WORKDIR $HOME/app
 
 COPY --chown=user . $HOME/app
 
-# Define the command to run the Streamlit app on port "8501" and make it accessible externally
-CMD ["streamlit", "run", "app.py", "--server.port=7860", "--server.address=0.0.0.0", "--server.enableXsrfProtection=false"]
+# Hugging Face Spaces routes traffic to 7860 for Docker apps.
+EXPOSE 7860
+
+# Run Streamlit in headless mode and bind to all interfaces.
+CMD ["streamlit", "run", "app.py", "--server.port=7860", "--server.address=0.0.0.0", "--server.headless=true", "--server.enableXsrfProtection=false"]
