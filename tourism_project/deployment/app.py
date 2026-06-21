@@ -7,7 +7,7 @@ from huggingface_hub import hf_hub_download
 st.set_page_config(page_title="Wellness Package Predictor", page_icon="🌍")
 st.title("Visit with Us - Wellness Package Purchase Prediction")
 
-HF_MODEL_REPO = os.getenv("HF_MODEL_REPO", "")
+HF_MODEL_REPO = os.getenv("HF_MODEL_REPO", "jaiwala/tourism-package-model")
 HF_TOKEN = os.getenv("HF_TOKEN")
 
 @st.cache_resource
@@ -22,8 +22,6 @@ def load_model():
     else:
         model_file = "tourism_project/model_building/best_model.joblib"
     return joblib.load(model_file)
-
-model = load_model()
 
 st.subheader("Enter customer details")
 
@@ -51,6 +49,13 @@ input_data = {
 if st.button("Predict"):
     input_df = pd.DataFrame([input_data])  # required rubric step: save inputs into a dataframe
     st.write("Input DataFrame", input_df)
+
+    try:
+        model = load_model()
+    except Exception as exc:
+        st.error(f"Model could not be loaded: {exc}")
+        st.info("Check HF_MODEL_REPO / HF_TOKEN in Space settings and confirm best_model.joblib exists.")
+        st.stop()
 
     pred = model.predict(input_df)[0]
     prob = model.predict_proba(input_df)[0][1]
